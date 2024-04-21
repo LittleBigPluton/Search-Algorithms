@@ -22,3 +22,8 @@ print(f"Index of searching item is {list_1.LinearSearch()}")
 print("Binary search is called")
 result_BinarySearch = list_1.BinarySearch()
 print(f"Searching list is {result_BinarySearch[0]} and Index of searching item is {result_BinarySearch[1]}")
+
+# Call jump search algorithm
+print("Jump search algorithm is called")
+result_JumpSearch = list_1.JumpSearch()
+print(f"Searching list is {result_JumpSearch[0]} and Index of searching item is {result_JumpSearch[1]}")
