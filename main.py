@@ -27,3 +27,8 @@ print(f"Searching list is {result_BinarySearch[0]} and Index of searching item i
 print("Jump search algorithm is called")
 result_JumpSearch = list_1.JumpSearch()
 print(f"Searching list is {result_JumpSearch[0]} and Index of searching item is {result_JumpSearch[1]}")
+
+# Call Fibonacci search
+print("Fibonacci search algorithm is called")
+result_FibonacciSearch = list_1.FibonacciSearch()
+print(f"Searching list is {result_FibonacciSearch[0]} and Index of searching item is {result_FibonacciSearch[1]}")
