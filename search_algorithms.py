@@ -88,3 +88,45 @@ class SearchAlgorithms:
                 return (self.searching_list,item)
         # If item not in the list, return None
         return (self.searching_list,None)
+
+    def FibonacciSearch(self):
+        # Check the given search list is sorted or not
+        if not self.searching_list == sorted(self.searching_list):
+            print("To perform Fibonacci search, given list must be sorted so the given list was sorted.")
+            self.searching_list.sort()
+
+        # Check the firts element if it is searching element or not
+        if self.searching_item == self.searching_list[0]:
+            return (self.searching_list,0)
+
+        # Create a look up table for Fibonacci sequence
+        fib_look_up = [0,1]
+        while True:
+            if self.length > fib_look_up[-1]:
+                fib_look_up.append(fib_look_up[-2]+fib_look_up[-1])
+            else:
+                break
+
+        # Select last element of Fibonacci Sequence as the key
+        n = -1 #Must be a negative integer
+        F_key = lambda n: fib_look_up[n]
+        F_key_1 = lambda n: fib_look_up[n-1]
+        F_key_2 = lambda n: fib_look_up[n-2]
+        # Initialize left starting point at zero for the first iteration
+        offset = 0
+
+        while F_key(n)>1:
+            # Set the comparing element
+            compare_index =min(offset + F_key_2(n),self.length-1)
+            if self.searching_item > self.searching_list[compare_index]:
+                # Down Fibonacci keys one step
+                n -= 1
+                # Shift left boundry to the right till F_key_2
+                offset = compare_index
+            elif self.searching_item < self.searching_list[compare_index]:
+                #Down Fibonacci keys one step
+                n -= 2
+            else:
+                return (self.searching_list,compare_index)
+        print(f"Searching term \"{self.searching_item}\" is not in the list.")
+        return (self.searching_list,None)
