@@ -239,3 +239,35 @@ offset = 0
 ```
 
 Finally, the search is started and after comparisons, the F<sub>key</sub> values are changed until the target element is found or returns `None`.
+
+## Usage
+To use functions in `search_algorithms.py` file, in your main script, `main.py` in this repository, you need to `import` `search_algorithms` as a library. Either `search_algorithms.py` and `main.py` must be in the same location or the location of `search_algorithms.py`  must be specified. Then, you can call all functions from `search_algorithms.py`. In this repository, the `random` library is used to create a randomly generated list to search with a randomly selected item from the list. The example command line looks like;
+```bash
+$ python3 main.py
+
+Searching list is  [-78, -8, 48, -13, -46, -58, 48, -82, -22, -47]
+Searching item in the list is : -22
+Linear search is called
+Index of searching item is 8
+Binary search is called
+Given list is not sorted. To perform Binary search, it is sorted.
+Searching list is [-82, -78, -58, -47, -46, -22, -13, -8, 48, 48] and Index of searching item is 5
+Jump search algorithm is called
+Searching list is [-82, -78, -58, -47, -46, -22, -13, -8, 48, 48] and Index of searching item is 5
+Fibonacci search algorithm is called
+Searching list is [-82, -78, -58, -47, -46, -22, -13, -8, 48, 48] and Index of searching item is 5
+```
+
+## Contributing
+1. Fork the repository.
+2. Create a new branch: `git checkout -b feature-name`.
+3. Make your changes.
+4. Push your branch: `git push origin feature-name`.
+5. Create a pull request.
+
+## References
+1. [Linear Search](https://en.wikipedia.org/wiki/Linear_search)
+2. [Binary Search](https://en.wikipedia.org/wiki/Binary_search)
+3. [Jump Search](https://en.wikipedia.org/wiki/Jump_search)
+4. [Fibonacci Search](https://en.wikipedia.org/wiki/Fibonacci_search_technique)
+5. [Fibonacci Search](https://www.tutorialspoint.com/data_structures_algorithms/fibonacci_search.htm)
