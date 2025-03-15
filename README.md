@@ -187,7 +187,7 @@ Let's imagine we have the following list to search and we want to find position 
 
 
 - **Step 1**: Compare element at index 5 (26). Since **45 > 26**, we update offset to 5 and decrease the Fibonacci index.  
-- **Step 2**: Next Fibonacci number is 8, compare index = offset + F<sub>k-2</sub> = 5 + 3 = 8 → element 53. Now **45 < 53**, so we reduce the Fibonacci index by 2.  
+- **Step 2**: Next Fibonacci number is 8, compare index = offset + F<sub>k-2</sub> = 5 + 3 = 8 where element is 53. Now **45 < 53**, so we reduce the Fibonacci index by 2.  
 - **Step 3**: Compare element at index 6 (32). Again **45 > 32**, so offset becomes 6 and we go down one Fibonacci step.  
 - **Step 4**: Compare element at index 7 (45). It matches, so the search ends.
 
