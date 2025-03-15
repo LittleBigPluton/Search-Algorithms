@@ -35,9 +35,9 @@ Linear search algorithm is a straightforward method. The element that needs to b
 |Index|0|1|2|3|4|5|6|7|8|9|
 |-----|:-:|:-:|:-:|-|-|-|-|-|-|-|
 |List |46|11|-20|55|75|22|73|-90|-85|98|
-|1.comparison|46 ?= -20| | | | | | | | | |
-|2.comparison||11 ?= -20|||||||||
-|3.comparison|||-20 ?= -20||||||||
+|1.comparison|46 > -20| | | | | | | | | |
+|2.comparison||11 > -20|||||||||
+|3.comparison|||-20 = -20||||||||
 
 #### Application
 The linear search algorithm is really simple to apply and use. Every iteration of the list element with a for loop is examined whether they are desired element or not.
@@ -52,7 +52,7 @@ except Exception as e:
   print(f"An error occurred. Please check the inputs again. Error : {e}")
   return None
 ```
-To handle errors correctly, the try-except block is implemented to the linear search algorithm. If function could not find any match, it returns a None value by printing a message. Also, for any unexpected error, the function return None value rather than executing itself.  
+To handle errors correctly, the try-except block is implemented to the linear search algorithm. If function could not find any match, it returns a None value by printing a message. Also, for any unexpected error, the function return `None` value rather than executing itself.  
 
 ### Binary Search [(2)](https://en.wikipedia.org/wiki/Binary_search)
 
@@ -109,7 +109,7 @@ except Exception as e:
   print(f"An error occurred: {e}")
   return (self.searching_list, None)
 ```
-To handle the errors, same try-except block method used here as well. If there is an unexpected error or the item is not found, the function return None value rather than stopping.
+To handle the errors, same try-except block method used here as well. If there is an unexpected error or the item is not found, the function return `None` value rather than stopping.
 
 ### Jump Search[(3)](https://en.wikipedia.org/wiki/Jump_search)
 
@@ -163,3 +163,79 @@ for item in range(step-jump, min(step + jump, self.length)):
 # If item not in the list, return None
 return (self.searching_list,None)
 ```
+
+
+### Fibonacci Search[(4)](https://en.wikipedia.org/wiki/Fibonacci_search_technique)[(5)](https://www.tutorialspoint.com/data_structures_algorithms/fibonacci_search.htm)
+The Fibonacci search is another application of the divide and conquer algorithm. It is similar to Binary Search, but instead of using intermediate indices, the Fibonacci search uses Fibonacci numbers to determine block sizes. This method works well for sorted lists and has a time complexity of `O(log n)`. It is a well-known fact that the Fibonacci series is an infinite series starting at `1` and continuing as `1,1,3,5,8,13,...`. Depending on the size of the list, the nearest but larger Fibonacci number is chosen as key number. For example, if the size of the list is 10, then the key number is 13 which is first biggest Fibonacci number from the Fibonacci series. We also need 2 previous Fibonacci numbers to make the search and a referance point to divide the list into sub-lists as `0` which refers to the **1<sup>st</sup>** element of the list at the beginning of the search. This value will change according to the comparison decisions.   
+
+$$
+F_k = 13 , F_{k-1} = 8, F_{k-2} = 5, \text{offset = 0}
+$$
+
+Let's imagine we have the following list to search and we want to find position of 45. To choose element to compare from the list, we will apply **offset + F<sub>k-2</sub>** to find index.
+
+| Index | 0  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 |
+|-------|----|----|----|----|----|----|----|----|----|----|----|
+| List  | 3  | 7  | 11 | 15 | 21 | 26 | 32 | 45 | 53 | 67 | 74 |
+
+|Step | F<sub>k</sub> | F<sub>k-1</sub> | F<sub>k-2</sub> | Offset | Compare Index | Compare Element | Comparison   | Action                                           |
+|-----|---------------|-----------------|-----------------|--------|---------------|-----------------|--------------|--------------------------------------------------|
+| 1   | 13            | 8               | 5               |0       |5             | 26             | 45 > 26      | Move search offset to 5, go down one Fibonacci step. |
+| 2   | 8             | 5               | 3               |5       |8             | 53             | 45 < 53      | Target is smaller; go down two Fibonacci steps.  |
+| 3   | 3             | 2               | 1               |5       |6             | 32             | 45 > 32      | Offset = 6, reduce k by 1.                       |
+| 4   | 2             | 1               | 1               |6       |7             | 45             | 45 == 45     | **Found** at index 7.                            |
+
+
+- **Step 1**: Compare element at index 5 (26). Since **45 > 26**, we update offset to 5 and decrease the Fibonacci index.  
+- **Step 2**: Next Fibonacci number is 8, compare index = offset + F<sub>k-2</sub> = 5 + 3 = 8 → element 53. Now **45 < 53**, so we reduce the Fibonacci index by 2.  
+- **Step 3**: Compare element at index 6 (32). Again **45 > 32**, so offset becomes 6 and we go down one Fibonacci step.  
+- **Step 4**: Compare element at index 7 (45). It matches, so the search ends.
+
+Let's imagine another scenario to understand Fibonacci search deeply. Now, we want to find position of 7. In this case, offset did not change.
+
+| Index | 0  | 1  | 2  | 3  | 4  | 5  | 6  | 7  | 8  | 9  | 10 |
+|-------|----|----|----|----|----|----|----|----|----|----|----|
+| List  | 3  | 7  | 11 | 15 | 21 | 26 | 32 | 45 | 53 | 67 | 74 |
+
+|Step | F<sub>k</sub> | F<sub>k-1</sub> | F<sub>k-2</sub> | Offset | Compare Index | Compare Element | Comparison   | Action                                           |
+|-----|---------------|-----------------|-----------------|--------|---------------|-----------------|--------------|--------------------------------------------------|
+| 1   | 13            | 8               | 5               |0       |5             | 26             | 26 > 7      | Target is smaller; go down two Fibonacci step.     |
+| 2   | 5             | 3               | 2               |0       |2             | 11             | 11 > 7      | Target is smaller; go down two Fibonacci steps.    |
+| 3   | 2             | 1               | 1               |0       |1             | 7              |  7 = 7      |**Found** at index 1.                              |
+
+#### Application
+First, we need to check whether the list is sorted or not, and if not, sort it. Then we check whether the search algorithm is the first element in the list or not.
+```python
+# Check the given search list is sorted or not
+if not self.searching_list == sorted(self.searching_list):
+    print("To perform Fibonacci search, given list must be sorted so the given list was sorted.")
+    self.searching_list.sort()
+
+# Check the firts element if it is searching element or not
+if self.searching_item == self.searching_list[0]:
+    return (self.searching_list,0)
+```
+
+After these steps, the necessary Fibonacci numbers for a lookup table are calculated.
+```python
+# Create a look up table for Fibonacci sequence
+fib_look_up = [0,1]
+while True:
+    if self.length > fib_look_up[-1]:
+        fib_look_up.append(fib_look_up[-2]+fib_look_up[-1])
+    else:
+        break
+```
+Then, F<sub>key</sub>, F<sub>key<sub>1</sub></sub> and F<sub>key<sub>2</sub></sub> values are defined using lambda functions to have dynamic F<sub>key</sub> values during the search.
+
+```python
+# Select last element of Fibonacci Sequence as the key
+n = -1 #Must be a negative integer
+F_key = lambda n: fib_look_up[n]
+F_key_1 = lambda n: fib_look_up[n-1]
+F_key_2 = lambda n: fib_look_up[n-2]
+# Initialize left starting point at zero for the first iteration
+offset = 0
+```
+
+Finally, the search is started and after comparisons, the F<sub>key</sub> values are changed until the target element is found or returns `None`.
